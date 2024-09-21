@@ -124,12 +124,12 @@ void add()
 
 void sub()
 {
-
+    //Dhaifan
 }
 
 void mul()
 {
-
+    //Aul
 }
 
 void div()
