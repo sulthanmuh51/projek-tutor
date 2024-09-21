@@ -1,71 +1,155 @@
 #include <iostream>
 #include <cstdlib> //for system()
 #include <string>
+#include <cmath>
+
+
+//functions prototypes declaration
+
+bool intro();
+void add();
+void sub();
+void mul();
+void div();
+
+//global variables
+
 int score = 0;
+int life = 3;
+
 using namespace std;
 
-int game() {
-    bool contgame = true;
-    while (contgame == true) {
-        int ans, oper;
-        double num1, num2;
-        num1 = int(rand() % 50);
-        num2 = int(rand() % 50);
-        oper = int(rand() %4);//operator
-        switch(oper){
+int main() {
+    srand(time(0));
+    int oper;
+    bool contgame = intro();
+    while (contgame == true) 
+    {
+        cout << "\nScore(s): " << score << endl;
+        cout << "Life(s): " << life << endl;
+        oper = int(rand() %4); //operator
+        switch(oper)
+        {
             case 0: 
-        }
-        cout << "\nscore: " << score << endl;
-        cout << num1 << " + " << num2 << " = ";//nyawa
-        cin >> ans;
-        if (num1 + num2 == ans) {
-            cout << "Congrats u got it right!" << endl;
-            score += 1;
-            if (score < 5) {
-                cout << "continuing..." << endl;
-            }
-            else if  (score ==5) {
-                cout << "" << endl;
-                cout<<"score: "<<score<<endl;
-                cout << "Congrats! You have won the game!";
-                contgame = false;
-            } else {}
+                add();
+                break;
 
-        } 
-        else {
-            cout << "ehhh u got it wrong";
+            case 1:
+                sub();
+                break;
+
+            case 2:
+                mul();
+                break;
+
+            case 3:
+                div();
+        }
+        if (life < 1)
+        {
+            contgame = false;
+            cout << "\n\nYour end score is " << score << endl; 
+            cout << "Thanks for joining!\n";
+        }
+        if (score < 5) 
+        {
+            cout << "continuing...\n\n";
+        }
+        else if  (score ==5) 
+        {
+            cout<<"score: "<<score<<endl;
+            cout << "Congrats! You have won the game!";
             contgame = false;
         }
     }
-    cout << "\n\nYour end score is " << score << endl; 
-    cout << "Thanks for joining!" << endl;
+
 
     return 0;
 }
 
-int main() {
-    srand(time(0));
-    bool cont = true;
+bool intro() {
     string username;
-    cout << "MATH QUIZ" << endl;
-    cout << "The game will end when u reach 5 points or when u fail before 5 points" << endl;
+    cout << 
+    "=================================================================================================\n"
+    " __    __     ______     ______   __  __        ______     __  __     __     ______     ______\n"    
+    "/\\ \"-./  \\   /\\  __ \\   /\\__  _\\ /\\ \\_\\ \\      /\\  __ \\   /\\ \\/\\ \\   /\\ \\   /\\___  \\   /\\___  \\ \n"   
+    "\\ \\ \\-./\\ \\  \\ \\  __ \\  \\/_/\\ \\/ \\ \\  __ \\     \\ \\ \\/\\_\\  \\ \\ \\_\\ \\  \\ \\ \\  \\/_/  /__  \\/_/  /__\n"  
+    " \\ \\_\\ \\ \\_\\  \\ \\_\\ \\_\\    \\ \\_\\  \\ \\_\\ \\_\\     \\ \\___\\_\\  \\ \\_____\\  \\ \\_\\   /\\_____\\   /\\_____\\ \n" 
+    "  \\/_/  \\/_/   \\/_/\\/_/     \\/_/   \\/_/\\/_/      \\/___/_/   \\/_____/   \\/_/   \\/_____/   \\/_____/\n\n"
+    "=================================================================================================\n\n";
+
+    cout << "You'll be given 3 lives, try to reach ten points before you ran out of lives!\n";
     cout << "Username: ";
     cin >> username;
-    while (cont == true) {
-        string ans1;
-        cout << "Hi! " << username << ", are you ready to work your brain? (yes/no)";
-        cin >> ans1;//use do while
+    username[0] = toupper(username[0]); //capitalize the first letter of username
 
-        if (ans1 == "yes") {
-            cout << "" << endl;
-            cont = false;
-            game();
-        } else if (ans1 == "no") {
-            cont = false;
-            break;
-        } else {
-            cout << "Error in the answer, please answer with yes or no.\n" << endl;
-        }
+    char ans1;
+
+    do
+    {
+        cout << "Hi! " << username << ", are you ready to work your brain? [y/n]";
+        cin >> ans1;
+    } while (tolower(ans1) != 'y' && tolower(ans1) != 'n'); //added tolower() for error handling
+    
+    if (ans1 == 'y') 
+    {
+        cout << "\n";
+        return true;
+    } else
+    {
+        return false;
     }
-    return 0;
+}
+
+void add()
+{
+    int num1, num2, ans;
+    num1 = int(rand() % 50);
+    num2 = int(rand() % 50);
+
+    cout << num1 << " + " << num2 << "= ";
+    cin >> ans;
+    if (num1 + num2 == ans) 
+    {
+        cout << "Congrats u got it right!\n";
+        score++;
+        
+    }
+    else 
+    {
+        cout << "Ehhh u got it wrong\n";
+        life--;
+    }
+}
+
+void sub()
+{
+
+}
+
+void mul()
+{
+
+}
+
+void div()
+{
+    float num1, num2;
+    int ans;
+    num1 = float(rand() % 9 + 1);
+    num2 = float (rand() % 9 + 1);
+
+    cout << "(Round the answer into nearest integer)\n" << num1 << '/' << num2 << "= ";
+    cin >> ans;
+    if(round(num1 / num2) == ans)
+    {
+        cout << "Congrats u got it right!\n";
+        score++;
+        
+    }
+    else 
+    {
+        cout << "Ehhh u got it wrong\n";
+        life--;
+    }
 }
