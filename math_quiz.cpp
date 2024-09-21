@@ -136,8 +136,8 @@ void div()
 {
     float num1, num2;
     int ans;
-    num1 = float(rand() % 9 + 1);
-    num2 = float (rand() % 9 + 1);
+    num1 = float(rand() % 10 + 1);
+    num2 = float (rand() % 10 + 1);
 
     cout << "(Round the answer into nearest integer)\n" << num1 << '/' << num2 << "= ";
     cin >> ans;
