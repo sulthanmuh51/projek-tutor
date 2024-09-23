@@ -25,8 +25,8 @@ int main() {
     bool contgame = intro();
     while (contgame == true) 
     {
-        cout << "\nScore(s): " << score << '\n';
-        cout << "Life(s): " << life << "\n\n";
+        cout << "\nScore(s): " << "\033[1m" << score << "\033[0m" << '\n';
+        cout << "Life(s): " << "\033[1m" << life << "\033[0m" << "\n\n";
         oper = int(rand() %4); //operator
         switch(oper)
         {
@@ -44,6 +44,7 @@ int main() {
 
             case 3:
                 div();
+                break;
         }
         if (life < 1)
         {
@@ -51,11 +52,15 @@ int main() {
             cout << "\n\nYour end score is " << score << endl; 
             cout << "Thanks for joining!\n";
         }
-        if (score < 10) 
+        if ((score < 5) || (score > 5))
         {
             cout << "continuing...\n\n";
         }
-        else if  (score ==10) 
+        if (score == 5) 
+        {
+            cout << "come on half more...\n\n";
+        }
+        else if  (score == 10) 
         {
             cout << "\nCongrats! You have won the game!\n";
             contgame = false;
@@ -86,7 +91,7 @@ bool intro() {
 
     do
     {
-        cout << "Hi! " << username << ", are you ready to work your brain? [y/n]";
+        cout << "Hi! " << username << ", are you ready to work your brain? [y/n] ";
         cin >> ans1;
     } while (tolower(ans1) != 'y' && tolower(ans1) != 'n'); //added tolower() for error handling
     
@@ -102,11 +107,11 @@ bool intro() {
 
 void add()
 {
-    int num1, num2, ans;
+    float num1, num2, ans;
     num1 = int(rand() % 50);
     num2 = int(rand() % 50);
 
-    cout << num1 << " + " << num2 << "= ";
+    cout << "\033[1m" << num1 << " + " << num2 << " = " << "\033[0m";
     cin >> ans;
     if (num1 + num2 == ans) 
     {
@@ -123,16 +128,32 @@ void add()
 
 void sub()
 {
-    //Dhaifan
+    float num1, num2, ans;
+    num1 = int(rand() % 50);
+    num2 = int(rand() % 50);
+
+    cout << "\033[1m" << num1 << " - " << num2 << " = " << "\033[0m";
+    cin >> ans;
+    if (num1 - num2 == ans) 
+    {
+        cout << "Congrats u got it right!\n";
+        score++;
+        
+    }
+    else 
+    {
+        cout << "Ehhh u got it wrong\n";
+        life--;
+    }
 }
 
 void mul()
 {
-    int num1, num2, ans;
+    float num1, num2, ans;
     num1 = int(rand() % 11);
     num2 = int(rand() % 11);
 
-    cout << num1 << " * " << num2 << "= ";
+    cout << "\033[1m" << num1 << " * " << num2 << " = " << "\033[0m";
     cin>> ans;
     if (num1 * num2 == ans)
     {
@@ -148,14 +169,14 @@ void mul()
 
 void div()
 {
-    float num1, num2;
-    int ans;
-    num1 = float(rand() % 10 + 1);
-    num2 = float (rand() % 10 + 1);
+    int num1, num2;
+    double ans;
+    num1 = int(rand() % 10 + 1);
+    num2 = int (rand() % 10 + 1);
 
-    cout << "(Round the answer to nearest integer)\n" << num1 << " / " << num2 << "= ";
+    cout << "(Round the answer to nearest integer)\n" << "\033[1m" << num1 << " / " << num2 << " = " << "\033[0m";
     cin >> ans;
-    if(round(num1 / num2) == ans)
+    if((num1 / num2) == ans)
     {
         cout << "Congrats u got it right!\n";
         score++;
@@ -165,5 +186,5 @@ void div()
     {
         cout << "Ehhh u got it wrong\n";
         life--;
-    }
+    } 
 }
